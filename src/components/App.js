@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchCategories } from '../actions/categoriesActions';
 import CategoriesList from './CategoriesList';
+import MyLocationsAppBar from './MyLocationsAppBar';
 
 class App extends Component {
   componentWillMount() {
@@ -12,6 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <MyLocationsAppBar />
         <CategoriesList categories={this.props.categories} />
       </div>
     );
