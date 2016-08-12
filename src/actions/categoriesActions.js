@@ -1,10 +1,9 @@
 export function fetchCategories(argument) {
+  let categories = JSON.parse(localStorage.getItem("MyLocations.categories"));
+  categories = categories ? categories : []
+
   return {
     type: "FETCH_CATEGORIES_FULFILLED",
-    payload: [
-      { _id: "1", name: "Cinema" },
-      { _id: "2", name: "Restorant" },
-      { _id: "3", name: "Office" }
-    ]
+    payload: categories
   }
 }

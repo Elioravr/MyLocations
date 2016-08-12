@@ -5,7 +5,7 @@ export default (state={
     case "FETCH_CATEGORIES_FULFILLED": {
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload
       };
     }
     default: {
