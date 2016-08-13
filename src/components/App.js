@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
 
-import { fetchCategories, addNewCategory } from '../actions/categoriesActions';
+import { fetchCategories, addNewCategory, removeCategory } from '../actions/categoriesActions';
 import CategoriesList from './CategoriesList';
 import MyLocationsAppBar from './MyLocationsAppBar';
 import MyLocationsFooter from './MyLocationsFooter';
@@ -38,6 +38,14 @@ class App extends Component {
     this.refs.categoryDialog.handleClose();
   }
 
+  removeCategory(category) {
+    let response = this.props.dispatch(removeCategory(category));
+
+    if (!response.error) {
+      this.showAlert("Category removed!");
+    }
+  }
+
   showAlert(alert) {
     if (!alert) {
       return;
@@ -59,7 +67,10 @@ class App extends Component {
         <MyLocationsAppBar onAddCategoryClick={this.onAddCategoryClick.bind(this)} />
         <NewCategoryDialog ref="categoryDialog" onSubmit={this.handleCategorySubmit.bind(this)} />
         <div className="main-container">
-          <CategoriesList categories={this.props.categories} />
+          <CategoriesList
+            categories={this.props.categories}
+            removeCategory={this.removeCategory.bind(this)}
+          />
         </div>
         <Snackbar
           style={snackbarStyle}

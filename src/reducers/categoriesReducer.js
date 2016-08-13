@@ -20,6 +20,12 @@ export default (state={
         error: action.payload
       };
     }
+    case "REMOVE_CATEGORIES_FULFILLED": {
+      return {
+        ...state,
+        categories: action.payload
+      };
+    }
     default: {
       return { ...state };
     }

@@ -31,6 +31,19 @@ export function addNewCategory(name) {
   }
 }
 
+export function removeCategory(categoryToRemove) {
+  let categories = getCategories().filter((category) => {
+    return category.name !== categoryToRemove.name
+  });
+
+  setCategories(categories);
+
+  return {
+    type: "REMOVE_CATEGORIES_FULFILLED",
+    payload: categories
+  }
+}
+
 function getCategories() {
   let categories = JSON.parse(localStorage.getItem("MyLocations.categories"));
   categories = categories ? categories : []
