@@ -10,7 +10,7 @@ export default class CategoriesList extends Component {
       return <EmptyList entityName="categories" />
     } else {
       return this.props.categories.map((category) => {
-        return <Category key={category._id} category={category} />
+        return <Category key={category.name} category={category} />
       });
     }
   }
