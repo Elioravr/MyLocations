@@ -3,6 +3,10 @@
   src: url('../../fonts/Roboto-Regular.ttf');
 }
 
+html, body, #root, .App {
+  height: 100%
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -11,4 +15,14 @@ body {
 
 .appbar {
   background-color: #607D8B !important;
+}
+
+.footer svg {
+  margin: auto;
+}
+
+.main-container {
+  /* appbar height: 64px */
+  /* footer height: 56px */
+  height: calc(100% - 64px - 56px);
 }
