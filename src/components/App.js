@@ -8,6 +8,8 @@ import MyLocationsAppBar from './MyLocationsAppBar';
 import MyLocationsFooter from './MyLocationsFooter';
 import NewCategoryDialog from './NewCategoryDialog';
 
+import '../styles/index.css'
+
 class App extends Component {
   componentWillMount() {
     this.props.dispatch(fetchCategories());

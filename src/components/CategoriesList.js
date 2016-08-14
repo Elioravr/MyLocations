@@ -5,6 +5,8 @@ import { List } from 'material-ui/List';
 import Category from './Category';
 import EmptyList from './EmptyList';
 
+import '../styles/categories-list.css';
+
 export default class CategoriesList extends Component {
 
   renderCategories() {

@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 
 import IconArrow from 'material-ui/svg-icons/navigation/arrow-upward';
 
+import '../styles/empty-list.css';
+
 export default class EmptyList extends Component {
   render() {
     this.iconStyle = {
