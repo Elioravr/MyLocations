@@ -25,5 +25,6 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"
-  }
+  },
+  "homepage": "http://elioravr.github.io/MyLocations"
 }
