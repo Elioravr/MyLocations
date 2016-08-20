@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
 export default class NewCategoryDialog extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+  componentWillMount() {
+    this.setState({
       newCategoryDialogOpen: false,
-    };
+    });
   }
 
   handleOpen() {

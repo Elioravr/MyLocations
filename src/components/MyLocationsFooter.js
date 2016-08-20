@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { browserHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import IconStyle from 'material-ui/svg-icons/image/style';
 import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 
@@ -9,13 +10,44 @@ const locationsIcon = <IconLocationOn />;
 
 class MyLocationsFooter extends Component {
   componentWillMount() {
+    this.categoriesPath = 0;
+    this.locationsPath = 1;
+    let index;
+
+    switch (this.props.location.pathname) {
+      case "/categories":
+        index = this.categoriesPath;
+        break;
+      case "/locations":
+        index = this.locationsPath;
+        break;
+      default:
+        index = 0;
+        break;
+    }
+
     this.state = {
-      selectedIndex: 0,
+      selectedIndex: index,
     };
   }
 
   select(index) {
+    let path;
+
+    switch (index) {
+      case this.categoriesPath:
+        path = "categories";
+        break;
+      case this.locationsPath:
+        path = "locations";
+        break;
+      default:
+        path = "";
+        break;
+    }
+
     this.setState({selectedIndex: index});
+    browserHistory.push(`/${path}`);
   }
 
 
@@ -26,12 +58,12 @@ class MyLocationsFooter extends Component {
           <BottomNavigationItem
             label="Categories"
             icon={categoriesIcon}
-            onTouchTap={() => this.select(0)}
+            onTouchTap={() => this.select(this.categoriesPath)}
           />
           <BottomNavigationItem
             label="Locations"
             icon={locationsIcon}
-            onTouchTap={() => this.select(1)}
+            onTouchTap={() => this.select(this.locationsPath)}
           />
         </BottomNavigation>
       </Paper>

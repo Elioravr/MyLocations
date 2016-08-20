@@ -1,51 +1,58 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Snackbar from 'material-ui/Snackbar';
+import { connect } from 'react-redux';
 
-import { fetchCategories, addNewCategory, removeCategory } from '../actions/categoriesActions';
-import CategoriesList from './CategoriesList';
+import { addNewCategory } from '../actions/categoriesActions';
+import { addNewLocation } from '../actions/locationsActions';
 import MyLocationsAppBar from './MyLocationsAppBar';
 import MyLocationsFooter from './MyLocationsFooter';
 import NewCategoryDialog from './NewCategoryDialog';
+import NewLocationDialog from './NewLocationDialog';
 
 import '../styles/index.css'
 
 class App extends Component {
   componentWillMount() {
-    this.props.dispatch(fetchCategories());
-
     this.setState({
       openAlert: false,
       alert: ""
     });
   }
 
-  onAddCategoryClick() {
-    this.refs.categoryDialog.handleOpen();
-  }
-
   handleCategorySubmit(name) {
     let response = this.props.dispatch(addNewCategory(name))
+    this.handleResponse("Category", response, this.closeNewCategoryDialog.bind(this));
+  }
 
-    if (response.error) {
-      this.showAlert(response.error);
-    }
-    else {
-      this.showAlert("Category created!");
-      this.closeNewCategoryDialog();
-    }
+  handleLocationSubmit(location) {
+    let response = this.props.dispatch(addNewLocation(location))
+    this.handleResponse("Location", response, this.closeNewLocationDialog.bind(this));
   }
 
   closeNewCategoryDialog() {
     this.refs.categoryDialog.handleClose();
   }
 
-  removeCategory(category) {
-    let response = this.props.dispatch(removeCategory(category));
+  closeNewLocationDialog() {
+    this.refs.locationDialog.handleClose();
+  }
 
-    if (!response.error) {
-      this.showAlert("Category removed!");
+  handleResponse(entityName, response, callback) {
+    if (response.error) {
+      this.showAlert(response.error);
     }
+    else {
+      this.showAlert(`${entityName} created!`);
+      callback();
+    }
+  }
+
+  onAddCategoryClick() {
+    this.refs.categoryDialog.handleOpen();
+  }
+
+  onAddLocationClick() {
+    this.refs.locationDialog.handleOpen();
   }
 
   showAlert(alert) {
@@ -59,6 +66,14 @@ class App extends Component {
     });
   }
 
+  renderChildren() {
+    let childrenOptions = {
+      showAlert: this.showAlert.bind(this)
+    };
+
+    return this.props.children && React.cloneElement(this.props.children, childrenOptions);
+  }
+
   render() {
     const snackbarStyle = {
       "textAlign": "center"
@@ -66,13 +81,14 @@ class App extends Component {
 
     return (
       <div className='App'>
-        <MyLocationsAppBar onAddCategoryClick={this.onAddCategoryClick.bind(this)} />
+        <MyLocationsAppBar
+          onAddCategoryClick={this.onAddCategoryClick.bind(this)}
+          onAddLocationClick={this.onAddLocationClick.bind(this)}
+        />
         <NewCategoryDialog ref="categoryDialog" onSubmit={this.handleCategorySubmit.bind(this)} />
+        <NewLocationDialog ref="locationDialog" onSubmit={this.handleLocationSubmit.bind(this)} />
         <div className="main-container">
-          <CategoriesList
-            categories={this.props.categories}
-            removeCategory={this.removeCategory.bind(this)}
-          />
+          {this.renderChildren()}
         </div>
         <Snackbar
           style={snackbarStyle}
@@ -81,14 +97,12 @@ class App extends Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-        <MyLocationsFooter />
+        <MyLocationsFooter location={this.props.location} />
       </div>
     );
   }
 }
 
 export default connect((store) => {
-  return {
-    categories: store.categories.categories
-  };
+  return {};
 })(App);

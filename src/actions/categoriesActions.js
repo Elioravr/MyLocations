@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { getCategories, isCategoryExists, addCategory, removeCategoryById } from './database';
 
 export function fetchCategories() {
   return {
@@ -8,49 +8,29 @@ export function fetchCategories() {
 }
 
 export function addNewCategory(name) {
-  let categories = getCategories();
-  let categoryExist = _(categories).some((category) => {
-    return category.name === name;
-  });
+  let categoryExist = isCategoryExists(name);
 
   if (categoryExist) {
     return {
       type: "ADD_NEW_CATEGORY_ERROR",
-      error: "Category already exist"
+      error: "Category is already exist"
     }
   }
   else {
-    let newCategory = { name };
-    categories.push(newCategory);
-    setCategories(categories);
+    let newCategories = addCategory(name);
 
     return {
       type: "ADD_NEW_CATEGORY",
-      payload: categories
+      payload: newCategories
     }
   }
 }
 
-export function removeCategory(categoryToRemove) {
-  let categories = getCategories().filter((category) => {
-    return category.name !== categoryToRemove.name
-  });
-
-  setCategories(categories);
+export function removeCategory(categoryToRemoveId) {
+  let newCategories = removeCategoryById(categoryToRemoveId);
 
   return {
     type: "REMOVE_CATEGORIES_FULFILLED",
-    payload: categories
+    payload: newCategories
   }
-}
-
-function getCategories() {
-  let categories = JSON.parse(localStorage.getItem("MyLocations.categories"));
-  categories = categories ? categories : []
-
-  return categories;
-}
-
-function setCategories(categories) {
-  localStorage.setItem("MyLocations.categories", JSON.stringify(categories));
 }

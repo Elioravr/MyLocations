@@ -1,0 +1,13 @@
+.locations-list-container {
+  height: 100%;
+  overflow: scroll;
+  padding: 30px !important;
+}
+
+.location-container {
+  margin-bottom: 20px
+}
+
+.location-container img {
+  height: 300px;
+}

@@ -6,7 +6,7 @@ import IconRemove from 'material-ui/svg-icons/content/clear';
 
 export default class Category extends Component {
   onRemoveClicked() {
-    this.props.removeCategory(this.props.category);
+    this.props.removeCategory();
   }
 
   render() {
@@ -15,8 +15,7 @@ export default class Category extends Component {
         style={{ padding: 0 }}
         onTouchTap={this.onRemoveClicked.bind(this)}
       >
-        <IconRemove className="remove-button"
-        />
+        <IconRemove className="remove-button"/>
       </IconButton>
     );
 

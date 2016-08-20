@@ -22,6 +22,7 @@ export default class MyLocationsAppBar extends Component {
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
             <MenuItem primaryText="Add New Category" onTouchTap={this.props.onAddCategoryClick}/>
+            <MenuItem primaryText="Add New Location" onTouchTap={this.props.onAddLocationClick}/>
             <MenuItem primaryText="About" />
           </IconMenu>
       }

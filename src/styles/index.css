@@ -16,6 +16,14 @@ body {
   margin: auto;
 }
 
+/*
+In order to make the react-select work
+fine with the Material-UI dialog
+*/
+.dialog-content div div {
+  overflow-y: visible !important;
+}
+
 .main-container {
   /* appbar height: 64px */
   /* footer height: 56px */

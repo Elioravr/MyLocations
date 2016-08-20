@@ -1,29 +1,29 @@
 export default (state={
-  categories: []
+  locations: [],
 }, action) => {
   switch (action.type) {
-    case "FETCH_CATEGORIES_FULFILLED": {
+    case "FETCH_LOCATIONS_FULFILLED": {
       return {
         ...state,
-        categories: action.payload
+        locations: action.payload
       };
     }
-    case "ADD_NEW_CATEGORY": {
+    case "ADD_NEW_LOCATION": {
       return {
         ...state,
-        categories: action.payload
+        locations: action.payload
       };
     }
-    case "ADD_NEW_CATEGORY_ERROR": {
+    case "ADD_NEW_LOCATION_ERROR": {
       return {
         ...state,
         error: action.payload
       };
     }
-    case "REMOVE_CATEGORIES_FULFILLED": {
+    case "REMOVE_LOCATIONS_FULFILLED": {
       return {
         ...state,
-        categories: action.payload
+        locations: action.payload
       };
     }
     default: {
