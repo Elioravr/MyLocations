@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 
 export default class CategoryChip extends Component {
   render() {
-    let style = {
+    const style = {
       float: "left",
       margin: "5px",
       cursor: "pointer"

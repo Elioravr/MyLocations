@@ -7,6 +7,13 @@ export function fetchLocations(categoryId) {
   }
 }
 
+export function sortLocations(field) {
+  return {
+    type: "SORT_LOCATIONS",
+    payload: field
+  }
+}
+
 export function addNewLocation(location) {
   let locationExist = isLocationExists(location.name);
 
