@@ -40,7 +40,7 @@ class CategoriesList extends Component {
 
   render() {
     return (
-      <List className="categories-list-container">
+      <List className="content-container categories-list-container">
         {this.renderCategories()}
       </List>
     );

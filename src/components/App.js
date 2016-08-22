@@ -21,7 +21,7 @@ class App extends Component {
 
   handleCategorySubmit(name) {
     let response = this.props.dispatch(addNewCategory(name))
-    this.handleResponse("Category", response, () => {
+    this.handleResponse("Category", this.refs.categoryDialog, response, () => {
       this.closeNewCategoryDialog();
       this.refs.footer.handleNewPathname("categories");
     });
@@ -29,7 +29,7 @@ class App extends Component {
 
   handleLocationSubmit(location) {
     let response = this.props.dispatch(addNewLocation(location))
-    this.handleResponse("Location", response, () => {
+    this.handleResponse("Location", this.refs.locationDialog, response, () => {
       this.closeNewLocationDialog();
       this.refs.footer.handleNewPathname("locations");
     });
@@ -43,9 +43,9 @@ class App extends Component {
     this.refs.locationDialog.handleClose();
   }
 
-  handleResponse(entityName, response, callback) {
+  handleResponse(entityName, dialog, response, callback) {
     if (response.error) {
-      this.showAlert(response.error);
+      dialog.showValidationMessage(response.error);
     }
     else {
       this.showAlert(`${entityName} created!`);

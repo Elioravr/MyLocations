@@ -11,6 +11,7 @@ class CategoriesAutoComplete extends Component {
 
     this.setState({
       dataSource: this.getCategoriesNames(),
+      selectedCategories: []
     });
   }
 

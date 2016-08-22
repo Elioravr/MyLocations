@@ -3,6 +3,8 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
+import ValidationMessage from './ValidationMessage';
+
 export default class NewCategoryDialog extends Component {
   componentWillMount() {
     this.setState({
@@ -19,8 +21,22 @@ export default class NewCategoryDialog extends Component {
   }
 
   handleSubmit() {
-    let categoryName = this.refs.nameInput.getValue();
-    this.props.onSubmit(categoryName);
+    let categoryName = this.serializeCategory();
+
+    if (categoryName !== "") {
+      this.props.onSubmit(categoryName);
+    }
+    else {
+      this.showValidationMessage();
+    }
+  }
+
+  serializeCategory() {
+    return this.refs.nameInput.getValue();
+  }
+
+  showValidationMessage(message) {
+    this.refs.validationMessage.show(message);
   }
 
   render() {
@@ -47,6 +63,7 @@ export default class NewCategoryDialog extends Component {
         open={this.state.newCategoryDialogOpen}
         onRequestClose={this.handleClose.bind(this)}
       >
+        <ValidationMessage ref="validationMessage" />
         <div className="category-name-container">
           <TextField
             ref="nameInput"

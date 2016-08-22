@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 
+import ValidationMessage from './ValidationMessage';
 import CategoriesAutoComplete from './CategoriesAutoComplete';
 
 export default class NewLocationDialog extends Component {
@@ -21,18 +22,40 @@ export default class NewLocationDialog extends Component {
   }
 
   handleSubmit() {
-    let newLocation = {
-      name: this.refs.nameInput.getValue(),
-      categoriesIds: this.getSelectedCategories()
-    };
+    let newLocation = this.serializeLocation();
 
-    this.props.onSubmit(newLocation);
+    if (newLocation) {
+      this.props.onSubmit(newLocation);
+    }
+    else {
+      this.showValidationMessage()
+    }
+  }
+
+  serializeLocation() {
+    let newLocation = {};
+
+    newLocation.name = this.refs.nameInput.getValue();
+    if (newLocation.name === "") {
+      return false;
+    }
+
+    newLocation.categoriesIds = this.getSelectedCategories();
+    if (newLocation.categoriesIds.length === 0) {
+      return false;
+    }
+
+    return newLocation;
   }
 
   getSelectedCategories() {
     return this.categoriesSelect.props.value.map((category) => {
       return category.value;
     });
+  }
+
+  showValidationMessage(message) {
+    this.refs.validationMessage.show(message);
   }
 
   setCategoriesSelectRef(categoriesSelect) {
@@ -64,6 +87,7 @@ export default class NewLocationDialog extends Component {
         onRequestClose={this.handleClose.bind(this)}
         contentClassName="dialog-content"
       >
+        <ValidationMessage ref="validationMessage" />
         <div className="location-name-container">
           <TextField
             ref="nameInput"
