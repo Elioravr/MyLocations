@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import IconStyle from 'material-ui/svg-icons/image/style';
 import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 
@@ -12,9 +12,20 @@ class MyLocationsFooter extends Component {
   componentWillMount() {
     this.categoriesPath = 0;
     this.locationsPath = 1;
-    let index;
 
-    switch (this.props.location.pathname) {
+    this.handleNewPathname();
+  }
+
+  handleNewPathname(newPath) {
+    let index;
+    let path = this.props.location.pathname;
+
+    if (newPath) {
+      path = `/${newPath}`;
+      browserHistory.push(path);
+    }
+
+    switch (path) {
       case "/categories":
         index = this.categoriesPath;
         break;
@@ -26,9 +37,9 @@ class MyLocationsFooter extends Component {
         break;
     }
 
-    this.state = {
+    this.setState({
       selectedIndex: index,
-    };
+    });
   }
 
   select(index) {
@@ -46,10 +57,12 @@ class MyLocationsFooter extends Component {
         break;
     }
 
-    this.setState({selectedIndex: index});
+    this.setState({
+      selectedIndex: index
+    });
+
     browserHistory.push(`/${path}`);
   }
-
 
   render() {
     return (

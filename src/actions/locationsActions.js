@@ -1,9 +1,9 @@
 import { getLocations, isLocationExists, addLocation, removeLocationById } from './database';
 
-export function fetchLocations() {
+export function fetchLocations(categoryId) {
   return {
     type: "FETCH_LOCATIONS_FULFILLED",
-    payload: getLocations()
+    payload: getLocations(categoryId)
   }
 }
 

@@ -16,6 +16,11 @@ body {
   margin: auto;
 }
 
+.content-container {
+  height: 100%;
+  overflow: scroll;
+}
+
 /*
 In order to make the react-select work
 fine with the Material-UI dialog

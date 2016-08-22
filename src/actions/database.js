@@ -13,6 +13,10 @@ export function getCategories() {
   return getCollection("categories");
 }
 
+export function getCategory(id) {
+  return getDocument("categories", id);
+}
+
 export function addCategory(name) {
   return addDocument("categories", { name });
 }
@@ -29,7 +33,10 @@ export function removeCategoryById(categoryToRemoveId) {
 // Locations
 // ------------------
 
-export function getLocations() {
+export function getLocations(categoryId) {
+  if (categoryId) {
+    return getCollectionWhere("locations", "categoriesIds", parseInt(categoryId, 10), { manyToMany: true });
+  }
   return getCollection("locations");
 }
 
@@ -60,6 +67,25 @@ function getCollection(collectionName) {
   collection = collection ? collection : []
 
   return collection;
+}
+
+function getCollectionWhere(collectionName, field, value, options = {}) {
+  let collection = getCollection(collectionName);
+
+  return collection.filter((document) => {
+    if (options.manyToMany) {
+      return _(document[field]).includes(value);
+    }
+
+    return (document[field] === value);
+  });
+}
+
+function getDocument(collectionName, id) {
+  id = parseInt(id, 10);
+  let document = _(getCollection(collectionName)).find({ id });
+
+  return document;
 }
 
 function addDocument(collectionName, newDocument) {

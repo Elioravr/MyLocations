@@ -3,6 +3,7 @@ import { ListItem } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
 import IconStyle from 'material-ui/svg-icons/image/style';
 import IconRemove from 'material-ui/svg-icons/content/clear';
+import { Link } from 'react-router';
 
 export default class Category extends Component {
   onRemoveClicked() {
@@ -19,11 +20,21 @@ export default class Category extends Component {
       </IconButton>
     );
 
+    const fullViewButton = (
+      <Link to={`/categories/${this.props.category.id}`}>
+        <IconButton
+          style={{ padding: 0, width: "24px", height: "24px" }}
+        >
+          <IconStyle className="full-button"/>
+        </IconButton>
+      </Link>
+    );
+
     return(
       <ListItem
         className="category"
         primaryText={this.props.category.name}
-        leftIcon={<IconStyle />}
+        leftIcon={fullViewButton}
         rightIcon={removeButton} />
     );
   }

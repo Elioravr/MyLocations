@@ -1,0 +1,19 @@
+.category-page-container .category-name {
+  font-size: 200%;
+  font-family: 'Lato', sans-serif;
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: white;
+  opacity: 0.9;
+  height: 90px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.category-page-container .locations-list-container {
+  margin-top: 90px;
+}

@@ -21,12 +21,18 @@ class App extends Component {
 
   handleCategorySubmit(name) {
     let response = this.props.dispatch(addNewCategory(name))
-    this.handleResponse("Category", response, this.closeNewCategoryDialog.bind(this));
+    this.handleResponse("Category", response, () => {
+      this.closeNewCategoryDialog();
+      this.refs.footer.handleNewPathname("categories");
+    });
   }
 
   handleLocationSubmit(location) {
     let response = this.props.dispatch(addNewLocation(location))
-    this.handleResponse("Location", response, this.closeNewLocationDialog.bind(this));
+    this.handleResponse("Location", response, () => {
+      this.closeNewLocationDialog();
+      this.refs.footer.handleNewPathname("locations");
+    });
   }
 
   closeNewCategoryDialog() {
@@ -97,7 +103,10 @@ class App extends Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-        <MyLocationsFooter location={this.props.location} />
+        <MyLocationsFooter
+          ref="footer"
+          location={this.props.location}
+        />
       </div>
     );
   }

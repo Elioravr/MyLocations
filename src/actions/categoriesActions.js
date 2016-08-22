@@ -1,9 +1,18 @@
-import { getCategories, isCategoryExists, addCategory, removeCategoryById } from './database';
+import { getCategories, isCategoryExists, addCategory, removeCategoryById, getCategory } from './database';
 
 export function fetchCategories() {
   return {
     type: "FETCH_CATEGORIES_FULFILLED",
     payload: getCategories()
+  }
+}
+
+export function fetchCategory(id) {
+  return {
+    type: "FETCH_CATEGORY_FULFILLED",
+    payload: {
+      category: getCategory(id)
+    }
   }
 }
 

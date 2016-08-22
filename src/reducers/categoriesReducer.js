@@ -1,11 +1,18 @@
 export default (state={
-  categories: []
+  categories: [],
+  category: {}
 }, action) => {
   switch (action.type) {
     case "FETCH_CATEGORIES_FULFILLED": {
       return {
         ...state,
         categories: action.payload
+      };
+    }
+    case "FETCH_CATEGORY_FULFILLED": {
+      return {
+        ...state,
+        category: action.payload.category,
       };
     }
     case "ADD_NEW_CATEGORY": {

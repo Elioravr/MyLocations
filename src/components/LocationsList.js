@@ -13,7 +13,21 @@ import '../styles/locations-list.css';
 class LocationsList extends Component {
   componentWillMount() {
     this.props.dispatch(fetchCategories());
-    this.props.dispatch(fetchLocations());
+    this.dispatchLocationsForNewCategoty(this.props.categoryId);
+  }
+
+  componentWillUpdate(newProps) {
+    if (this.state && newProps.categoryId !== this.state.categoryId) {
+      this.dispatchLocationsForNewCategoty(newProps.categoryId);
+    }
+  }
+
+  dispatchLocationsForNewCategoty(categoryId) {
+    this.setState({
+      categoryId: categoryId
+    });
+
+    this.props.dispatch(fetchLocations(categoryId));
   }
 
   removeLocation(locationId) {
@@ -47,9 +61,13 @@ class LocationsList extends Component {
     });
   }
 
+  getListClass() {
+    return `${this.props.categoryId ? "" : "content-container"} locations-list-container`;
+  }
+
   render() {
     return (
-      <List className="locations-list-container">
+      <List className={this.getListClass()}>
         {this.renderLocations()}
       </List>
     );
