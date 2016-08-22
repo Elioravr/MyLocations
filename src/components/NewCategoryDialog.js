@@ -12,8 +12,16 @@ export default class NewCategoryDialog extends Component {
     });
   }
 
-  handleOpen() {
-    this.setState({newCategoryDialogOpen: true});
+  handleOpen(options = {}) {
+    let newState = {
+      newCategoryDialogOpen: true
+    };
+
+    if (options.category) {
+      newState.category = options.category
+    }
+
+    this.setState(newState);
   }
 
   handleClose() {
@@ -21,13 +29,21 @@ export default class NewCategoryDialog extends Component {
   }
 
   handleSubmit() {
-    let categoryName = this.serializeCategory();
+    let name = this.serializeCategory();
 
-    if (categoryName !== "") {
-      this.props.onSubmit(categoryName);
+    if (name === "") {
+      this.showValidationMessage();
+    }
+    else if (!this.state.category) {
+      this.props.onSubmit({ name });
+      this.clearStateCategory();
     }
     else {
-      this.showValidationMessage();
+      let category = this.state.category;
+      category.name = name;
+
+      this.clearStateCategory();
+      this.props.onSubmit(category);
     }
   }
 
@@ -37,6 +53,12 @@ export default class NewCategoryDialog extends Component {
 
   showValidationMessage(message) {
     this.refs.validationMessage.show(message);
+  }
+
+  clearStateCategory() {
+    this.setState({
+      category: null
+    });
   }
 
   render() {
@@ -68,6 +90,7 @@ export default class NewCategoryDialog extends Component {
           <TextField
             ref="nameInput"
             hintText="Enter category name"
+            defaultValue={this.state.category ? this.state.category.name : ""}
             floatingLabelText="What's the name of the category?"
           />
         </div>

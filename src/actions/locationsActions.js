@@ -15,7 +15,7 @@ export function sortLocations(field) {
 }
 
 export function addNewLocation(location) {
-  let locationExist = isLocationExists(location.name);
+  let locationExist = isLocationExists(location);
 
   if (locationExist) {
     return {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import IconEdit from 'material-ui/svg-icons/image/edit';
 
 import { fetchCategory } from '../actions/categoriesActions';
 import LocationsList from './LocationsList';
@@ -25,10 +26,19 @@ export default class CategoryPage extends Component {
     this.props.dispatch(fetchCategory(categoryId));
   }
 
+  onEditCategoryClicked() {
+    this.props.editCategory({
+      category: this.props.category
+    });
+  }
+
   render() {
     return (
       <div className="content-container category-page-container">
-        <header className="category-name">Locations for {this.props.category.name}</header>
+        <header className="category-name" onTouchTap={this.onEditCategoryClicked.bind(this)}>
+          Locations for {this.props.category.name}
+          <IconEdit />
+        </header>
         <LocationsList categoryId={this.state.categoryId} />
       </div>
     );

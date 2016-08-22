@@ -1,4 +1,4 @@
-import { getCategories, isCategoryExists, addCategory, removeCategoryById, getCategory } from './database';
+import { getCategories, isCategoryExists, addCategory, updateCategory, removeCategoryById, getCategory } from './database';
 
 export function fetchCategories() {
   return {
@@ -16,8 +16,8 @@ export function fetchCategory(id) {
   }
 }
 
-export function addNewCategory(name) {
-  let categoryExist = isCategoryExists(name);
+export function addNewCategory(category) {
+  let categoryExist = isCategoryExists(category);
 
   if (categoryExist) {
     return {
@@ -26,7 +26,14 @@ export function addNewCategory(name) {
     }
   }
   else {
-    let newCategories = addCategory(name);
+    let newCategories;
+
+    if (category.id) {
+      newCategories = updateCategory(category);
+    }
+    else {
+      newCategories = addCategory(category);
+    }
 
     return {
       type: "ADD_NEW_CATEGORY",

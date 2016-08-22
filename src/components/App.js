@@ -19,11 +19,12 @@ class App extends Component {
     });
   }
 
-  handleCategorySubmit(name) {
-    let response = this.props.dispatch(addNewCategory(name))
+  handleCategorySubmit(category) {
+    let response = this.props.dispatch(addNewCategory(category))
     this.handleResponse("Category", this.refs.categoryDialog, response, () => {
       this.closeNewCategoryDialog();
-      this.refs.footer.handleNewPathname("categories");
+      let path = category.id ? `categories/${category.id}` : "categories"
+      this.refs.footer.handleNewPathname(path);
     });
   }
 
@@ -48,13 +49,13 @@ class App extends Component {
       dialog.showValidationMessage(response.error);
     }
     else {
-      this.showAlert(`${entityName} created!`);
+      this.showAlert(`${entityName} submited!`);
       callback();
     }
   }
 
-  onAddCategoryClick() {
-    this.refs.categoryDialog.handleOpen();
+  onAddCategoryClick(options = {}) {
+    this.refs.categoryDialog.handleOpen(options);
   }
 
   onAddLocationClick() {
@@ -74,7 +75,8 @@ class App extends Component {
 
   renderChildren() {
     let childrenOptions = {
-      showAlert: this.showAlert.bind(this)
+      showAlert: this.showAlert.bind(this),
+      editCategory: this.onAddCategoryClick.bind(this)
     };
 
     return this.props.children && React.cloneElement(this.props.children, childrenOptions);

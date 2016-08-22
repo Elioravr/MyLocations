@@ -10,19 +10,23 @@ import _ from 'lodash';
 // ------------------
 
 export function getCategories() {
-  return getCollection("categories");
+  return getCollectionArray("categories");
 }
 
 export function getCategory(id) {
   return getDocument("categories", id);
 }
 
-export function addCategory(name) {
-  return addDocument("categories", { name });
+export function addCategory(category) {
+  return addDocument("categories", category);
 }
 
-export function isCategoryExists(name) {
-  return isDocumentExists("categories", "name", name)
+export function updateCategory(category) {
+  return updateDocument("categories", category);
+}
+
+export function isCategoryExists(category) {
+  return isDocumentExists("categories", "name", category.name)
 }
 
 export function removeCategoryById(categoryToRemoveId) {
@@ -37,15 +41,15 @@ export function getLocations(categoryId) {
   if (categoryId) {
     return getCollectionWhere("locations", "categoriesIds", parseInt(categoryId, 10), { manyToMany: true });
   }
-  return getCollection("locations");
+  return getCollectionArray("locations");
 }
 
 export function addLocation(newLocation) {
   return addDocument("locations", newLocation);
 }
 
-export function isLocationExists(name) {
-  return isDocumentExists("locations", "name", name)
+export function isLocationExists(location) {
+  return isDocumentExists("locations", "name", location.name)
 }
 
 export function removeLocationById(locationToRemoveId) {
@@ -58,19 +62,25 @@ export function removeLocationById(locationToRemoveId) {
 
 function getNewId(collectionName) {
   let collection = getCollection(collectionName);
-  let biggestId = _(collection).map('id').flatten().max();
+  let biggestId = _.maxBy(_.keys(collection), (id) => {
+    return parseInt(id, 10);
+  });
   return biggestId ? ++biggestId : 1;
 }
 
 function getCollection(collectionName) {
   let collection = JSON.parse(localStorage.getItem(`MyLocations.${collectionName}`));
-  collection = collection ? collection : []
+  collection = collection ? collection : {}
 
   return collection;
 }
 
+function getCollectionArray(collectionName) {
+  return _.values(getCollection(collectionName));
+}
+
 function getCollectionWhere(collectionName, field, value, options = {}) {
-  let collection = getCollection(collectionName);
+  let collection = getCollectionArray(collectionName);
 
   return collection.filter((document) => {
     if (options.manyToMany) {
@@ -82,10 +92,14 @@ function getCollectionWhere(collectionName, field, value, options = {}) {
 }
 
 function getDocument(collectionName, id) {
-  id = parseInt(id, 10);
-  let document = _(getCollection(collectionName)).find({ id });
+  return getCollection(collectionName)[id];
+}
 
-  return document;
+function updateDocument(collectionName, newDocument) {
+  let collection = getCollection(collectionName);
+  collection[newDocument.id] = newDocument
+
+  return setCollection(collectionName, collection);
 }
 
 function addDocument(collectionName, newDocument) {
@@ -93,20 +107,19 @@ function addDocument(collectionName, newDocument) {
   newDocument = { ...newDocument, id };
 
   let collection = getCollection(collectionName);
-  collection.push(newDocument);
+  collection[id] = newDocument;
   return setCollection(collectionName, collection);
 }
 
 function removeDocument(collectionName, documentToRemoveId) {
-  let collection = getCollection(collectionName).filter((document) => {
-    return document.id !== documentToRemoveId;
-  });
+  let collection = getCollection(collectionName);
+  delete collection[documentToRemoveId];
 
   return setCollection(collectionName, collection);
 }
 
 function isDocumentExists(collectionName, field, value) {
-  let collection = getCollection(collectionName);
+  let collection = getCollectionArray(collectionName);
   return _(collection).some((document) => {
     return document[field] === value;
   });
@@ -114,5 +127,5 @@ function isDocumentExists(collectionName, field, value) {
 
 function setCollection(collectionName, newCollection) {
   localStorage.setItem(`MyLocations.${collectionName}`, JSON.stringify(newCollection));
-  return newCollection;
+  return _.values(newCollection);
 }

@@ -6,12 +6,25 @@
   right: 0;
   background: white;
   opacity: 0.9;
-  height: 90px;
+  height: 93px;
   z-index: 10;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  cursor: pointer;
+}
+.category-page-container .category-name svg {
+  margin-left: 15px;
+}
+
+.category-page-container .category-name {
+  transition: background-color 0.4s, transform 0.4s;
+}
+
+.category-page-container .category-name:hover {
+  background-color: #ccc;
+  transform: scale(1.1);
 }
 
 .category-page-container .locations-list-container {
