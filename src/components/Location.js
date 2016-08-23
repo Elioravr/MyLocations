@@ -5,6 +5,10 @@ import FlatButton from 'material-ui/FlatButton';
 import CategoryChip from './CategoryChip';
 
 export default class Location extends Component {
+  generateSrc() {
+    return `http://loremflickr.com/${window.innerWidth}/300/paris?random=${this.props.location.id}`
+  }
+
   renderCategories() {
     return this.props.categories.map((category) => {
       return (
@@ -24,7 +28,7 @@ export default class Location extends Component {
         >
           <img
             role="presentation"
-            src="http://assets.barcroftmedia.com.s3-website-eu-west-1.amazonaws.com/assets/images/recent-images-11.jpg" />
+            src={this.generateSrc()} />
         </CardMedia>
         <CardText>
           {this.renderCategories()}
