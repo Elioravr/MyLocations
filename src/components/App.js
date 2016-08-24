@@ -73,6 +73,13 @@ class App extends Component {
     });
   }
 
+  handleRequestClose() {
+    this.setState({
+      openAlert: false,
+      alert: ""
+    });
+  }
+
   renderChildren() {
     let childrenOptions = {
       showAlert: this.showAlert.bind(this),
@@ -104,7 +111,7 @@ class App extends Component {
           open={this.state.openAlert}
           message={this.state.alert}
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.handleRequestClose.bind(this)}
         />
         <MyLocationsFooter
           ref="footer"
