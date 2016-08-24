@@ -50,12 +50,15 @@ class LocationsList extends Component {
       return this.props.locations.map((location) => {
         let categories = this.getCategories(location);
 
-        return <Location
-          key={location.id}
-          location={location}
-          categories={categories}
-          removeLocation={this.removeLocation.bind(this, location.id)}
-        />
+        return (
+          <Location
+            key={location.id}
+            location={location}
+            categories={categories}
+            editLocation={this.props.editLocation}
+            removeLocation={this.removeLocation.bind(this, location.id)}
+          />
+        );
       });
     }
   }

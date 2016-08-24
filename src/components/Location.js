@@ -9,6 +9,12 @@ export default class Location extends Component {
     return `http://loremflickr.com/${window.innerWidth}/300/paris?random=${this.props.location.id}`
   }
 
+  onEditLocationClicked() {
+    this.props.editLocation({
+      location: this.props.location
+    });
+  }
+
   renderCategories() {
     return this.props.categories.map((category) => {
       return (
@@ -34,7 +40,7 @@ export default class Location extends Component {
           {this.renderCategories()}
         </CardText>
         <CardActions style={{"clear": "both"}}>
-          <FlatButton label="Edit" />
+          <FlatButton label="Edit" onTouchTap={this.onEditLocationClicked.bind(this)} />
           <FlatButton label="Remove" onTouchTap={this.props.removeLocation} />
         </CardActions>
       </Card>

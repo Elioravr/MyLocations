@@ -39,7 +39,10 @@ export default class CategoryPage extends Component {
           Locations for {this.props.category.name}
           <IconEdit />
         </header>
-        <LocationsList categoryId={this.state.categoryId} />
+        <LocationsList
+          categoryId={this.state.categoryId}
+          editLocation={this.props.editLocation}
+        />
       </div>
     );
   }

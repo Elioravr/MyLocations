@@ -15,13 +15,13 @@ export default (state={
         category: action.payload.category,
       };
     }
-    case "ADD_NEW_CATEGORY": {
+    case "SUBMIT_CATEGORY": {
       return {
         ...state,
         categories: action.payload
       };
     }
-    case "ADD_NEW_CATEGORY_ERROR": {
+    case "SUBMIT_CATEGORY_ERROR": {
       return {
         ...state,
         error: action.payload

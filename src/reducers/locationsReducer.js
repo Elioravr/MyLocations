@@ -15,13 +15,13 @@ export default (state={
         sorting: action.payload
       };
     }
-    case "ADD_NEW_LOCATION": {
+    case "SUBMIT_LOCATION": {
       return {
         ...state,
         locations: action.payload
       };
     }
-    case "ADD_NEW_LOCATION_ERROR": {
+    case "SUBMIT_LOCATION_ERROR": {
       return {
         ...state,
         error: action.payload

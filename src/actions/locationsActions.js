@@ -15,11 +15,11 @@ export function sortLocations(field) {
 }
 
 export function addNewLocation(location) {
-  let locationExist = isLocationExists(location);
+  let locationNewAndExist = isLocationExists(location) && !location.id;
 
-  if (locationExist) {
+  if (locationNewAndExist) {
     return {
-      type: "ADD_NEW_LOCATION_ERROR",
+      type: "SUBMIT_LOCATION_ERROR",
       error: "Location is already exist"
     }
   }
@@ -27,7 +27,7 @@ export function addNewLocation(location) {
     let newLocation = addLocation(location);
 
     return {
-      type: "ADD_NEW_LOCATION",
+      type: "SUBMIT_LOCATION",
       payload: newLocation
     }
   }

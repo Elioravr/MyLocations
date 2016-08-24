@@ -25,6 +25,7 @@ export default class NewCategoryDialog extends Component {
   }
 
   handleClose() {
+    this.clearStateCategory();
     this.setState({newCategoryDialogOpen: false});
   }
 
@@ -69,7 +70,7 @@ export default class NewCategoryDialog extends Component {
         onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
-        label="Create"
+        label={this.state.category ? "Edit" : "Create"}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleSubmit.bind(this)}

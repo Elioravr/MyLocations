@@ -10,9 +10,11 @@ class CategoriesAutoComplete extends Component {
     this.props.dispatch(fetchCategories());
 
     this.setState({
-      dataSource: this.getCategoriesNames(),
-      selectedCategories: []
+      dataSource: this.getCategoriesNames()
     });
+
+    let categories = this.props.defaultValue ? this.props.defaultValue : [];
+    this.setSelectedCategories(categories);
   }
 
   getCategoriesNames() {
@@ -28,6 +30,10 @@ class CategoriesAutoComplete extends Component {
   }
 
   onCategoriesSelected(values) {
+    this.setSelectedCategories(values);
+  }
+
+  setSelectedCategories(values) {
     this.setState({
       selectedCategories: values
     });

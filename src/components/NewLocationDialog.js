@@ -13,11 +13,20 @@ export default class NewLocationDialog extends Component {
     });
   }
 
-  handleOpen() {
-    this.setState({newLocationDialogOpen: true});
+  handleOpen(options = {}) {
+    let newState = {
+      newLocationDialogOpen: true
+    };
+
+    if (options.location) {
+      newState.location = options.location
+    }
+
+    this.setState(newState);
   }
 
   handleClose() {
+    this.clearStateLocation();
     this.setState({newLocationDialogOpen: false});
   }
 
@@ -26,6 +35,7 @@ export default class NewLocationDialog extends Component {
 
     if (newLocation) {
       this.props.onSubmit(newLocation);
+      this.clearStateLocation();
     }
     else {
       this.showValidationMessage()
@@ -45,17 +55,27 @@ export default class NewLocationDialog extends Component {
       return false;
     }
 
+    if (this.state.location) {
+      newLocation.id = this.state.location.id;
+    }
+
     return newLocation;
   }
 
   getSelectedCategories() {
     return this.categoriesSelect.props.value.map((category) => {
-      return category.value;
+      return category.value ? category.value : category;
     });
   }
 
   showValidationMessage(message) {
     this.refs.validationMessage.show(message);
+  }
+
+  clearStateLocation() {
+    this.setState({
+      location: null
+    });
   }
 
   setCategoriesSelectRef(categoriesSelect) {
@@ -70,7 +90,7 @@ export default class NewLocationDialog extends Component {
         onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
-        label="Create"
+        label={this.state.location ? "Edit" : "Create"}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleSubmit.bind(this)}
@@ -92,12 +112,15 @@ export default class NewLocationDialog extends Component {
           <TextField
             ref="nameInput"
             hintText="Enter location name"
+            defaultValue={this.state.location ? this.state.location.name : ""}
             floatingLabelText="What's the name of the location?"
           />
         </div>
         <div className="location-categories-container">
           <CategoriesAutoComplete
-            selectRef={this.setCategoriesSelectRef.bind(this)} />
+            selectRef={this.setCategoriesSelectRef.bind(this)}
+            defaultValue={this.state.location ? this.state.location.categoriesIds : []}
+          />
         </div>
       </Dialog>
     );

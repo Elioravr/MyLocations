@@ -21,10 +21,6 @@ export function addCategory(category) {
   return addDocument("categories", category);
 }
 
-export function updateCategory(category) {
-  return updateDocument("categories", category);
-}
-
 export function isCategoryExists(category) {
   return isDocumentExists("categories", "name", category.name)
 }
@@ -103,6 +99,8 @@ function updateDocument(collectionName, newDocument) {
 }
 
 function addDocument(collectionName, newDocument) {
+  if (newDocument.id) return updateDocument(collectionName, newDocument);
+
   let id = getNewId(collectionName);
   newDocument = { ...newDocument, id };
 

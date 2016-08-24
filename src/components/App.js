@@ -58,8 +58,8 @@ class App extends Component {
     this.refs.categoryDialog.handleOpen(options);
   }
 
-  onAddLocationClick() {
-    this.refs.locationDialog.handleOpen();
+  onAddLocationClick(options = {}) {
+    this.refs.locationDialog.handleOpen(options);
   }
 
   showAlert(alert) {
@@ -76,7 +76,8 @@ class App extends Component {
   renderChildren() {
     let childrenOptions = {
       showAlert: this.showAlert.bind(this),
-      editCategory: this.onAddCategoryClick.bind(this)
+      editCategory: this.onAddCategoryClick.bind(this),
+      editLocation: this.onAddLocationClick.bind(this)
     };
 
     return this.props.children && React.cloneElement(this.props.children, childrenOptions);
