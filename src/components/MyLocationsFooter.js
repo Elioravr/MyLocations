@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import IconStyle from 'material-ui/svg-icons/image/style';
@@ -22,7 +22,7 @@ class MyLocationsFooter extends Component {
 
     if (newPath) {
       path = `/${newPath}`;
-      browserHistory.push(path);
+      hashHistory.push(path);
     }
 
     switch (path) {
@@ -61,7 +61,7 @@ class MyLocationsFooter extends Component {
       selectedIndex: index
     });
 
-    browserHistory.push(`/${path}`);
+    hashHistory.push(`/${path}`);
   }
 
   render() {

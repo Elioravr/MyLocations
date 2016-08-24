@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Router, Route, Redirect, browserHistory } from 'react-router';
+import { Router, Route, Redirect, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import store from './store';
@@ -9,7 +9,7 @@ import CategoriesList from './components/CategoriesList';
 import LocationsList from './components/LocationsList';
 import CategoryPage from './components/CategoryPage';
 
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(hashHistory, store);
 
 export const renderRoutes = () => (
   <Router history={history}>
