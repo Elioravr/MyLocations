@@ -29,6 +29,15 @@ fine with the Material-UI dialog
   overflow-y: visible !important;
 }
 
+.dialog-content .inline-field {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+.dialog-content .multi-select-field {
+  margin-top: 30px;
+}
+
 .main-container {
   /* appbar height: 64px */
   /* footer height: 56px */

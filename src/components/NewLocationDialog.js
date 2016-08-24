@@ -50,6 +50,16 @@ export default class NewLocationDialog extends Component {
       return false;
     }
 
+    newLocation.address = this.refs.addressInput.getValue();
+    if (newLocation.address === "") {
+      return false;
+    }
+
+    newLocation.coordinates = this.refs.coordinatesInput.getValue();
+    if (newLocation.coordinates === "") {
+      return false;
+    }
+
     newLocation.categoriesIds = this.getSelectedCategories();
     if (newLocation.categoriesIds.length === 0) {
       return false;
@@ -116,7 +126,25 @@ export default class NewLocationDialog extends Component {
             floatingLabelText="What's the name of the location?"
           />
         </div>
-        <div className="location-categories-container">
+        <div className="location-address-container">
+          <div className="inline-field">
+            <TextField
+              ref="addressInput"
+              hintText="Enter location address"
+              defaultValue={this.state.location ? this.state.location.address : ""}
+              floatingLabelText="What's the address of the location?"
+            />
+          </div>
+          <div className="inline-field">
+            <TextField
+              ref="coordinatesInput"
+              hintText="Enter location coordinates"
+              defaultValue={this.state.location ? this.state.location.coordinates : ""}
+              floatingLabelText="What's the location's coordinates?"
+            />
+          </div>
+        </div>
+        <div className="multi-select-field location-categories-container">
           <CategoriesAutoComplete
             selectRef={this.setCategoriesSelectRef.bind(this)}
             defaultValue={this.state.location ? this.state.location.categoriesIds : []}

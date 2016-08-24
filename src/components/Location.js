@@ -30,7 +30,7 @@ export default class Location extends Component {
     return (
       <Card className="location-container">
         <CardMedia
-          overlay={<CardTitle title={this.props.location.name}/>}
+          overlay={<CardTitle title={this.props.location.name} subtitle={this.props.location.address} />}
         >
           <img
             role="presentation"
