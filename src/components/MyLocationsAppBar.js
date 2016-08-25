@@ -23,7 +23,7 @@ export default class MyLocationsAppBar extends Component {
           >
             <MenuItem primaryText="Add New Category" onTouchTap={this.props.onAddCategoryClick}/>
             <MenuItem primaryText="Add New Location" onTouchTap={this.props.onAddLocationClick}/>
-            <MenuItem primaryText="About" />
+            <MenuItem primaryText="About" onTouchTap={this.props.onAboutClick} />
           </IconMenu>
       }
     />);

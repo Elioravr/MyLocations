@@ -8,6 +8,7 @@ import MyLocationsAppBar from './MyLocationsAppBar';
 import MyLocationsFooter from './MyLocationsFooter';
 import NewCategoryDialog from './NewCategoryDialog';
 import NewLocationDialog from './NewLocationDialog';
+import AboutDialog from './AboutDialog';
 
 import '../styles/index.css'
 
@@ -62,6 +63,10 @@ class App extends Component {
     this.refs.locationDialog.handleOpen(options);
   }
 
+  onAboutClick() {
+    this.refs.aboutDialog.handleOpen();
+  }
+
   showAlert(alert) {
     if (!alert) {
       return;
@@ -100,9 +105,11 @@ class App extends Component {
         <MyLocationsAppBar
           onAddCategoryClick={this.onAddCategoryClick.bind(this)}
           onAddLocationClick={this.onAddLocationClick.bind(this)}
+          onAboutClick={this.onAboutClick.bind(this)}
         />
         <NewCategoryDialog ref="categoryDialog" onSubmit={this.handleCategorySubmit.bind(this)} />
         <NewLocationDialog ref="locationDialog" onSubmit={this.handleLocationSubmit.bind(this)} />
+        <AboutDialog ref="aboutDialog" />
         <div className="main-container">
           {this.renderChildren()}
         </div>

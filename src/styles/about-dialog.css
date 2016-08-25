@@ -1,0 +1,11 @@
+.about-container {
+  text-align: center;
+}
+
+.about-container img {
+  width: 200px;
+}
+
+.about-container .description .sammary {
+  margin: 20px 0;
+}
